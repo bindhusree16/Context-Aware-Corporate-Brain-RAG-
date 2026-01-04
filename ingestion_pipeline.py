@@ -75,9 +75,9 @@ def init_pinecone_index(index_name: str, dimension: int):
             )
 
         )
-        print(f"✅ Created Pinecone index: {index_name}")
+        print(f" Created Pinecone index: {index_name}")
     else:
-        print(f"ℹ️ Using existing Pinecone index: {index_name}")
+        print(f" Using existing Pinecone index: {index_name}")
 
     return pc.Index(index_name)
 
@@ -100,15 +100,15 @@ def upsert_vectors(index, chunks, embedding_model):
 
         vectors.append((vector_id, embedding, metadata))
 
-    index.upsert(vectors)
-    print(f"✅ Upserted {len(vectors)} vectors to Pinecone")
+    index.upsert(vectors)           # updated and inserted the vectors in indexes with unique ids
+    print(f" Upserted {len(vectors)} vectors to Pinecone")
 
 # =====================================================
 # 6. TEST RETRIEVAL (WEEK-1 VERIFICATION)
 # =====================================================
 
 def test_retrieval(index, embedding_model, query: str, top_k: int = 3):
-    query_embedding = embedding_model.embed_query(query)
+    query_embedding = embedding_model.embed_query(query)  #convert query to 384 dimention vector
 
     result = index.query(
         vector=query_embedding,
@@ -129,7 +129,7 @@ def test_retrieval(index, embedding_model, query: str, top_k: int = 3):
 # =====================================================
 
 if __name__ == "__main__":
-    print("🚀 Starting Week-1 Ingestion Pipeline...")
+    print(" Starting Ingestion Pipeline...")
 
     docs = load_documents(PDF_PATH)
     chunks = chunk_documents(docs)
@@ -145,4 +145,4 @@ if __name__ == "__main__":
     # Mandatory Week-1 verification
     test_retrieval(index, embedding_model, "do they provide job assistance?")
 
-    print("\n✅ Week-1 ingestion completed successfully")
+    print("\n ingestion completed successfully")
