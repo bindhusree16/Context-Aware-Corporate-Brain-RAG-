@@ -3,21 +3,25 @@
 ## 📌 Project Description
 
 This project implements a **Context-Aware Retrieval-Augmented Generation (RAG) system** designed to act as a corporate knowledge assistant.
-It ingests internal documents, converts them into vector embeddings, and retrieves relevant context to generate accurate answers using Large Language Models (LLMs).
+It ingests internal documents such as policies,SOPs,manuals and reports, converts them into vector embeddings, and retrieves most relevant context to generate accurate, document-grounded answers using Large Language Models (LLMs).
 
----
+Unlike traditional chatbots,this system:
+  . Answers only from provided documents
+  . Prevents hallucinations
+  . Provides traceable, reliable responses suitable for enterprise environments
 
 ## 🚀 Key Features
 
-* 📄 Document ingestion and preprocessing
-* ✂️ Text chunking for efficient retrieval
-* 🔎 Semantic search using vector embeddings
-* 🧠 Context-aware answer generation
-* ⚡ Scalable RAG architecture for enterprise use
+*  Document ingestion and preprocessing
+*  Text chunking for efficient retrieval
+*  Semantic search using vector embeddings
+*  Context-aware answer generation
+*  Hallucination Prevention
+*  Scalable RAG architecture for enterprise use
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 * Python
 * LangChain
@@ -30,3 +34,7 @@ It ingests internal documents, converts them into vector embeddings, and retriev
 * Internal company knowledge base
 * Policy & document Q&A
 * Context-aware chatbots
+
+Author
+Bindhusree Moreddy
+Python Developer Intern - AI &RAG Systems
