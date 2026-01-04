@@ -44,8 +44,8 @@ def load_vectorstore():
 # LOAD HUGGINGFACE LLM (NO API KEY)
 # =====================================================
 
-def load_llm():
-    hf_pipe = pipeline(
+def load_llm():     #from transformers
+    hf_pipe = pipeline(                        #readymade wrapper - instead of writing tokenizer code,model loading,decoding logic ,just we say here is txt- give output
         "text2text-generation",
         model="google/flan-t5-base",
         max_new_tokens=256,
@@ -79,7 +79,7 @@ Answer:
 # =====================================================
 # WEEK-2 QUESTION ANSWERING LOGIC
 # =====================================================
-
+'''
 def ask_question(vectorstore, llm, question: str):
     # 1️⃣ Retrieve relevant chunks
     #docs = vectorstore.similarity_search(question, k=3)
@@ -112,7 +112,33 @@ def ask_question(vectorstore, llm, question: str):
 
     print("\n📄 Sources:")
     for doc in results:
-        print(f"- {doc.metadata.get('source')} | Page {doc.metadata.get('page')}")
+        print(f"- {doc.metadata.get('source')} | Page {doc.metadata.get('page')}")'''
+def ask_question(vectorstore, llm, question: str, return_sources=False):
+    results = vectorstore.similarity_search(question, k=3)
+
+    if not results:
+        answer = "I don’t know. This information is not present in the documents."
+        return (answer, []) if return_sources else answer
+
+    context = "\n\n".join([doc.page_content for doc in results])
+
+    prompt = PROMPT_TEMPLATE.format(
+        context=context,
+        question=question
+    )
+
+    response = llm.invoke(prompt)
+
+    sources = [
+        {
+            "source": doc.metadata.get("source"),
+            "page": doc.metadata.get("page")
+        }
+        for doc in results
+    ]
+
+    return (response, sources) if return_sources else response
+
 
 # =====================================================
 # MAIN
